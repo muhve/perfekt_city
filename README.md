@@ -13,3 +13,22 @@ http://ptp.hel.fi/avoindata/
 http://www.hri.fi/fi/dataset/hsl-n-nousijamaarat-pysakeittain
 
 http://geoserver.hel.fi/geoserver/web/?wicket:bookmarkablePage=:org.geoserver.web.demo.MapPreviewPage
+
+# Data used
+
+## avoin WMS-rajapintapalvelu
+
+https://kartta.hel.fi/ws/geoserver/avoindata/wms
+
+Layers:
+
+Ortoilmakuva 2016
+
+Rakennukset kartalla
+
+
+## HSL avoin data
+
+http://data-hslhrt.opendata.arcgis.com/datasets?sort_by=relevance
+
+HSL:n nousijamäärät
