@@ -1,0 +1,87 @@
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+nav {
+  background: #2bc1b7;
+  box-sizing: border-box;
+  height: 60px;
+  left: 0;
+  padding: 16px 20px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+
+.logo {
+  color: #fff;
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.2rem;
+}
+
+.sidebar {
+  background: rgba(255,255,255,0.7);
+  box-sizing: border-box;
+  color: #000;
+  left: 0;
+  padding: 10px 20px 15px;
+  position: absolute;
+  top: 60px;
+  width: 320px;
+  z-index: 10;
+}
+
+.btn-primary {
+  background-color: #444;
+  border-color: #444;
+}
+
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.form-control {
+  border-color: #fff;
+  box-shadow: none;
+}
+
+.list-group-item {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.list-group-item.active,
+.list-group-item.active:focus,
+.list-group-item.active:hover {
+  background-color: #2bc1b7;
+  border-color: #2bc1b7;
+}
+
+.btn.active,
+.btn:active {
+  box-shadow: none !important;
+}
+
+#canvasOne {
+  bottom: 0;
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 100%;
+}
