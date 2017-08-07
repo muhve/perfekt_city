@@ -78,7 +78,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
 
 
         //
-        //  HSL kuvakkeiden piirtäminen
+        //  HSL traffic drawing
         //
         var shapeConfigurationCallback = function (geometry, properties) {
             // Set up the common placemark attributes.
@@ -92,7 +92,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
             placemarkAttributes.labelAttributes.offset = new WorldWind.Offset(
                 WorldWind.OFFSET_FRACTION, 0.5,
                 WorldWind.OFFSET_FRACTION, 1.5);
-            placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/white-dot.png";
+            placemarkAttributes.imageSource = WorldWind.configuration.baseUrl + "images/man.png";
 
             var configuration = {};
 

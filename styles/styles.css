@@ -85,3 +85,15 @@ nav {
   top: 60px;
   width: 100%;
 }
+.no-bullets {
+  list-style: none;
+}
+.legend-color--green {
+  color: green;
+}
+.legend-color--yellow {
+  color: yellow;
+}
+.legend-color--red {
+  color: red;
+}
