@@ -38,7 +38,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
         var serviceAddress2 = "http://geoserver.hel.fi/geoserver/hel/wms?service=WMS&version=1.1.0&request=GetCapabilities";
 
         // Called asynchronously to parse and create the WMS layer
-        var createLayer = function (xmlDom, layerName) {
+        var createLayer = function (xmlDom, layerName, displayName) {
             // Create a WmsCapabilities object from the XML DOM
             var wms = new WorldWind.WmsCapabilities(xmlDom);
             // Retrieve a WmsLayerCapabilities object by the desired layer name
@@ -46,7 +46,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
             // Form a configuration object from the WmsLayerCapability object
             var wmsConfig = WorldWind.WmsLayer.formLayerConfiguration(wmsLayerCapabilities);
             // Modify the configuration objects title property to a more user friendly title
-            wmsConfig.title = layerName;
+            wmsConfig.title = displayName || layerName;
 
             // Create the WMS Layer from the configuration object
             var wmsLayer = new WorldWind.WmsLayer(wmsConfig, "10");
@@ -64,16 +64,16 @@ requirejs(['./WebWorldWind/src/WorldWind',
         };
 
         $.get(serviceAddress).done(function(data) {
-            createLayer(data, "Rakennukset_kartalla")
+            createLayer(data, "Rakennukset_kartalla", "Buildings")
         }).fail(logError);
 
         /*$.get(serviceAddress).done(function(data) {
             createLayer(data, "Ortoilmakuva_2016")
         }).fail(logError);*/
 
-        $.get(serviceAddress2).done(function(data) {
+        /*$.get(serviceAddress2).done(function(data) {
             createLayer(data, "openahjo_agenda_items")
-        }).fail(logError);
+        }).fail(logError);*/
 
 
 
@@ -119,5 +119,54 @@ requirejs(['./WebWorldWind/src/WorldWind',
         var pointGeoJSON = new WorldWind.GeoJSONParser("http://localhost:8080/hsl.geojson");
         pointGeoJSON.load(null, shapeConfigurationCallback, pointLayer);
         wwd.addLayer(pointLayer);
+
+        //
+        //  OpenAhjo asemakaavoitukset
+        //
+        // Create a layer to hold the polygons.
+        var polygonsLayer = new WorldWind.RenderableLayer();
+        polygonsLayer.displayName = "Asemakaavat";
+        wwd.addLayer(polygonsLayer);
+
+        $.get("https://dev.hel.fi/paatokset/v1/issue/search/?category=419&limit=100&format=json").done(function(data) {
+
+            let objects = data.objects.map(function(object) {
+                object.geometries = object.geometries
+                    .filter(x => x.category === 'plan_unit')
+                    .map(geometry => 
+                        geometry.coordinates[0].map(x => 
+                            new WorldWind.Position(x[1], x[0], 100)))
+                return object
+            }).filter(x => x.geometries.length > 0)
+
+            console.log(objects)
+
+            objects.forEach(function(object) {
+                var polygon = new WorldWind.Polygon([object.geometries[0]], null);
+                polygon.altitudeMode = WorldWind.ABSOLUTE;
+                polygon.extrude = true; // extrude the polygon edges to the ground
+
+                var polygonAttributes = new WorldWind.ShapeAttributes(null);
+                polygonAttributes.drawInterior = true;
+                polygonAttributes.drawOutline = true;
+                polygonAttributes.outlineColor = WorldWind.Color.BLUE;
+                polygonAttributes.interiorColor = new WorldWind.Color(0, 1, 1, 0.5);
+                polygonAttributes.drawVerticals = polygon.extrude;
+                polygonAttributes.applyLighting = true;
+                polygon.attributes = polygonAttributes;
+
+                var highlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
+                highlightAttributes.outlineColor = WorldWind.Color.RED;
+                highlightAttributes.interiorColor = new WorldWind.Color(1, 1, 1, 0.5);
+                polygon.highlightAttributes = highlightAttributes;
+
+                // Add the polygon to the layer and the layer to the World Window's layer list.
+                polygonsLayer.addRenderable(polygon);
+            })
+
+            // Create a layer manager for controlling layer visibility.
+            var layerManger = new LayerManager(wwd);
+            var highlightController = new WorldWind.HighlightController(wwd);
+        }).fail(logError);
 
     });
