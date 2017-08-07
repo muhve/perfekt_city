@@ -37,7 +37,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
         var highlightController = new WorldWind.HighlightController(wwd);
 
         /*
-        var serviceAddress2 = "http://geoserver.hel.fi/geoserver/hel/wms?service=WMS&version=1.1.0&request=GetCapabilities";        
+        var serviceAddress2 = "http://geoserver.hel.fi/geoserver/hel/wms?service=WMS&version=1.1.0&request=GetCapabilities";
         $.get(serviceAddress2).done(function(data) {
             createLayer(data, "openahjo_agenda_items")
         }).fail(logError);
@@ -45,9 +45,9 @@ requirejs(['./WebWorldWind/src/WorldWind',
 
 
         wwd.addLayer(require('./hslLayer'));
-        wwd.addLayer(require('./unitPlanLayer'));    
+        wwd.addLayer(require('./unitPlanLayer'));
         layerManger.synchronizeLayerList()
-        
+
         var serviceAddress = "https://kartta.hel.fi/ws/geoserver/avoindata/wms?SERVICE=WMS&REQUEST=GetCapabilities";
 
         $.get(serviceAddress).done(function(data) {
@@ -86,13 +86,20 @@ requirejs(['./WebWorldWind/src/WorldWind',
                 }
 
                 if (highlightedItems.length > 0) {
-                    if (highlightedItems[0]) console.log(highlightedItems[0])
-                    $( "#hsl" ).html(highlightedItems[0].attributes.name+"<br>"+highlightedItems[0].attributes.amount);
+                    $( "#hsl" ).html(
+                      "Stop name: " + highlightedItems[0].attributes.name
+                      +
+                      "<br>"
+                      +
+                    "Passenger count: "+ highlightedItems[0].attributes.amount);
                 } else {
                     $( "#hsl" ).html("");
                 }
+
+
+
             }
-            
+
             if (redrawRequired) wwd.redraw();
         };
 

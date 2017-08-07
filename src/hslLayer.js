@@ -12,7 +12,7 @@ define(['./WebWorldWind/src/WorldWind'], function () {
     var shapeConfigurationCallback = function (geometry, properties) {
         // Set up the common placemark attributes.
         var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
-        placemarkAttributes.imageScale = properties.nousijat/150000+0.1;
+        placemarkAttributes.imageScale = properties.nousijat/150000+0.2;
 
         if (properties.nousijat < 5000) placemarkAttributes.imageColor = WorldWind.Color.GREEN;
         else if (properties.nousijat < 25000) placemarkAttributes.imageColor = WorldWind.Color.YELLOW;
