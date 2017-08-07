@@ -24,11 +24,19 @@ Layers:
 
 Ortoilmakuva 2016
 
-Rakennukset kartalla
+Building information on the map
 
 
-## HSL avoin data
+## HSL open bus stop data
 
 http://data-hslhrt.opendata.arcgis.com/datasets?sort_by=relevance
 
-HSL:n nousijamäärät
+Data of how many people have
+
+## Backlog
+*Cleaning up the project structure
+*Layers folder
+*Filtering of min and max people count on HSL data (a slider)
+*Filtering all the datasets with a time slider
+*Find a datasource that goes beyond 5 years (current ones only cover either 3 or 5 years)
+*Legend for the building data and filtering of certain buildings

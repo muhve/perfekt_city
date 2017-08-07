@@ -62,7 +62,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
         var logError = function (jqXhr, text, exception) {
             console.log("There was a failure retrieving the capabilities document: " + text + " exception: " + exception);
         };
-        
+
         $.get(serviceAddress).done(function(data) {
             createLayer(data, "Rakennukset_kartalla")
         }).fail(logError);
@@ -115,7 +115,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
             wwd.addLayer(layer);
         };
 
-        var pointLayer = new WorldWind.RenderableLayer("HSL nousijamäärät");
+        var pointLayer = new WorldWind.RenderableLayer("HSL bus stop traffic");
         var pointGeoJSON = new WorldWind.GeoJSONParser("http://localhost:8080/hsl.geojson");
         pointGeoJSON.load(null, shapeConfigurationCallback, pointLayer);
         wwd.addLayer(pointLayer);
