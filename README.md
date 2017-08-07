@@ -31,7 +31,7 @@ Building information on the map
 
 http://data-hslhrt.opendata.arcgis.com/datasets?sort_by=relevance
 
-Data of how many people have
+Data of how many people have used that bus stop
 
 ## Backlog
 * Cleaning up the project structure
