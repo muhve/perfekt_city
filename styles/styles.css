@@ -112,3 +112,12 @@ nav {
 .legend-color--violet {
   color: #FF00FF;
 }
+.hover-information {
+  font-weight: bold;
+  height: 50px;
+  animation: fadein 0.3s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
