@@ -97,3 +97,18 @@ nav {
 .legend-color--red {
   color: red;
 }
+.legend-color--orange-1 {
+  color: #FF9740;
+}
+.legend-color--orange-2 {
+  color: #FF6100;
+}
+.legend-color--blue-1 {
+  color: #00D9FF;
+}
+.legend-color--blue-2 {
+  color: #00B1DC;
+}
+.legend-color--violet {
+  color: #FF00FF;
+}
