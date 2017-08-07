@@ -125,7 +125,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
         //
         // Create a layer to hold the polygons.
         var polygonsLayer = new WorldWind.RenderableLayer();
-        polygonsLayer.displayName = "Asemakaavat";
+        polygonsLayer.displayName = "Unit plans";
         wwd.addLayer(polygonsLayer);
 
         $.get("https://dev.hel.fi/paatokset/v1/issue/search/?category=419&limit=100&format=json").done(function(data) {
@@ -165,7 +165,6 @@ requirejs(['./WebWorldWind/src/WorldWind',
             })
 
             // Create a layer manager for controlling layer visibility.
-            var layerManger = new LayerManager(wwd);
             var highlightController = new WorldWind.HighlightController(wwd);
         }).fail(logError);
 

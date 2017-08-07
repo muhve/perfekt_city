@@ -4,7 +4,7 @@ npm install
 
 php -S localhost:8888
 
-http://localhost:8888/src/index.html
+open http://localhost:8080
 
 # Data sources
 
