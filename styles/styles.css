@@ -78,7 +78,7 @@ nav {
 #canvasOne {
   bottom: 0;
   display: block;
-  height: 100%;
+  height: calc(100vh - 60px);
   left: 0;
   position: absolute;
   right: 0;

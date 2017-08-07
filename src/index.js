@@ -86,13 +86,11 @@ requirejs(['./WebWorldWind/src/WorldWind',
                 }
 
                 if (highlightedItems.length > 0) {
+                    if (highlightedItems[0]) console.log(highlightedItems[0])
                     $( "#hsl" ).html(highlightedItems[0].attributes.name+"<br>"+highlightedItems[0].attributes.amount);
                 } else {
                     $( "#hsl" ).html("");
                 }
-
-                
-
             }
             
             if (redrawRequired) wwd.redraw();

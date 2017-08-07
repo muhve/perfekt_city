@@ -9,21 +9,26 @@ define(['./WebWorldWind/src/WorldWind'], function () {
     var polygonsLayer = new WorldWind.RenderableLayer();
     polygonsLayer.displayName = "Unit plans";
 
-    $.get("https://dev.hel.fi/paatokset/v1/issue/search/?category=419&limit=100&format=json").done(function(data) {
+    $.get("https://dev.hel.fi/paatokset/v1/issue/search/?category=419&limit=250&format=json").done(function(data) {
 
         let objects = data.objects.map(function(object) {
             object.geometries = object.geometries
                 .filter(x => x.category === 'plan_unit')
-                .map(geometry =>
-                    geometry.coordinates[0].map(x =>
-                        new WorldWind.Position(x[1], x[0], 100)))
+                .filter(x => x.coordinates.length > 0)
+                .map(geometry => {
+                    return geometry.coordinates.map(coordinate => {
+                        if (typeof coordinate !== 'number') {
+                            return coordinate.map(x => {
+                                return new WorldWind.Position(x[1], x[0], 100)
+                            })
+                        }
+                    })
+                })
             return object
         }).filter(x => x.geometries.length > 0)
 
-        console.log(objects)
-
         objects.forEach(function(object) {
-            var polygon = new WorldWind.Polygon([object.geometries[0]], null);
+            var polygon = new WorldWind.Polygon(object.geometries[0], null);
             polygon.altitudeMode = WorldWind.ABSOLUTE;
             polygon.extrude = true; // extrude the polygon edges to the ground
 
@@ -35,6 +40,7 @@ define(['./WebWorldWind/src/WorldWind'], function () {
             polygonAttributes.drawVerticals = polygon.extrude;
             polygonAttributes.applyLighting = true;
             polygon.attributes = polygonAttributes;
+            polygon.attributes.summary = object.summary;
 
             var highlightAttributes = new WorldWind.ShapeAttributes(polygonAttributes);
             highlightAttributes.outlineColor = WorldWind.Color.RED;

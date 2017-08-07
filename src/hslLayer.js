@@ -12,7 +12,7 @@ define(['./WebWorldWind/src/WorldWind'], function () {
     var shapeConfigurationCallback = function (geometry, properties) {
         // Set up the common placemark attributes.
         var placemarkAttributes = new WorldWind.PlacemarkAttributes(null);
-        placemarkAttributes.imageScale = properties.nousijat/150000+0.05;
+        placemarkAttributes.imageScale = properties.nousijat/150000+0.1;
 
         if (properties.nousijat < 5000) placemarkAttributes.imageColor = WorldWind.Color.GREEN;
         else if (properties.nousijat < 25000) placemarkAttributes.imageColor = WorldWind.Color.YELLOW;
@@ -44,7 +44,7 @@ define(['./WebWorldWind/src/WorldWind'], function () {
     };
 
     var pointLayer = new WorldWind.RenderableLayer("HSL bus stop traffic");
-    var pointGeoJSON = new WorldWind.GeoJSONParser("http://localhost:8080/hsl.geojson");
+    var pointGeoJSON = new WorldWind.GeoJSONParser("http://perfekt-city.s3-website.eu-central-1.amazonaws.com/hsl.geojson");
     pointGeoJSON.load(null, shapeConfigurationCallback, pointLayer);
 
     return pointLayer
