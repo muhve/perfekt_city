@@ -26,11 +26,11 @@
     <h4>Projection</h4>
     <div class="dropdown" id="projectionDropdown"></div>
     <br>
-    <h4>Layers</h4>
-    <div class="list-group" id="layerList"></div>
+    <h4>Layers <small id="showLayers">show</small><small id="hideLayers" style="display:none">hide</small></h4>
+    <div class="list-group" id="layerList" style="display:none"></div>
     <br>
     <h4>Hover information</h4>
-    <div id="hsl" class="hover-information">
+    <div id="hover" class="hover-information">
     </div>
     <p class="small">Hover will reveal additional information.</p>
     <h4>Legend</h4>
@@ -53,7 +53,6 @@
 
       </ul>
     </div>
-    <h4>Destination</h4>
     <div class="input-group" id="searchBox">
         <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
         <span class="input-group-btn">
@@ -63,7 +62,6 @@
         </span>
     </div>
 </div>
-
 <canvas id="canvasOne" width="1000" height="1000">
   Your browser does not support HTML5 Canvas.
 </canvas>

@@ -44,7 +44,8 @@ define(['./WebWorldWind/src/WorldWind'], function () {
     };
 
     var pointLayer = new WorldWind.RenderableLayer("HSL bus stop traffic");
-    var pointGeoJSON = new WorldWind.GeoJSONParser("http://perfekt-city.s3-website.eu-central-1.amazonaws.com/hsl.geojson");
+    //var pointGeoJSON = new WorldWind.GeoJSONParser("http://perfekt-city.s3-website.eu-central-1.amazonaws.com/hsl.geojson");
+    var pointGeoJSON = new WorldWind.GeoJSONParser("http://localhost:8080/hsl.geojson");    
     pointGeoJSON.load(null, shapeConfigurationCallback, pointLayer);
 
     return pointLayer

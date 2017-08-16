@@ -6,9 +6,10 @@
 requirejs(['./WebWorldWind/src/WorldWind',
         './LayerManager',
         './unitPlanLayer',
-        './hslLayer'],
+        './hslLayer'
+    ],
     function (ww,
-              LayerManager) {
+        LayerManager) {
         "use strict";
 
         WorldWind.Logger.setLoggingLevel(WorldWind.Logger.LEVEL_WARNING);
@@ -21,11 +22,22 @@ requirejs(['./WebWorldWind/src/WorldWind',
         wwd.deepPicking = true;
 
         // Standard World Wind layers
-        var layers = [
-            {layer: new WorldWind.CompassLayer(), enabled: true},
-            {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-            {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true},
-            {layer: new WorldWind.BingAerialWithLabelsLayer(), enabled: true}
+        var layers = [{
+                layer: new WorldWind.CompassLayer(),
+                enabled: true
+            },
+            {
+                layer: new WorldWind.CoordinatesDisplayLayer(wwd),
+                enabled: true
+            },
+            {
+                layer: new WorldWind.ViewControlsLayer(wwd),
+                enabled: true
+            },
+            {
+                layer: new WorldWind.BingAerialWithLabelsLayer(),
+                enabled: true
+            }
         ];
 
         for (var l = 0; l < layers.length; l++) {
@@ -50,7 +62,7 @@ requirejs(['./WebWorldWind/src/WorldWind',
 
         var serviceAddress = "https://kartta.hel.fi/ws/geoserver/avoindata/wms?SERVICE=WMS&REQUEST=GetCapabilities";
 
-        $.get(serviceAddress).done(function(data) {
+        $.get(serviceAddress).done(function (data) {
             var wms = new WorldWind.WmsCapabilities(data);
             var wmsLayerCapabilities = wms.getNamedLayer("Rakennukset_kartalla");
             var wmsConfig = WorldWind.WmsLayer.formLayerConfiguration(wmsLayerCapabilities);
@@ -86,22 +98,40 @@ requirejs(['./WebWorldWind/src/WorldWind',
                 }
 
                 if (highlightedItems.length > 0) {
-                    $( "#hsl" ).html(
-                      "Stop name: " + highlightedItems[0].attributes.name
-                      +
-                      "<br>"
-                      +
-                    "Passenger count: "+ highlightedItems[0].attributes.amount);
-                } else {
-                    $( "#hsl" ).html("");
+
+                    var div = document.getElementById("divtoshow");
+                    
+                    div.style.left = x;
+                    div.style.top = y;
+                
+                    $("#divtoshow").toggle();
+
+                    if (highlightedItems[0].layer.displayName === "Unit plans") {
+                        renderPlans(highlightedItems[0])
+                    } else if (highlightedItems[0].layer.displayName === "HSL bus stop traffic") {
+                        renderHsl(highlightedItems[0])
+                    } else {
+                        $("#hover").html("");
+                    }
                 }
-
-
-
             }
 
             if (redrawRequired) wwd.redraw();
         };
+
+        var renderHsl = function (item) {
+            $("#hover").html(
+                "Stop name: " + item.attributes.name +
+                "<br>" +
+                "Passenger count: " + item.attributes.amount
+            );
+        }
+
+        var renderPlans = function (item) {
+            $("#hover").html(
+                item._attributes.summary
+            );
+        }
 
         // Listen for mouse moves and highlight the placemarks that the cursor rolls over.
         wwd.addEventListener("mousemove", handlePick);
@@ -109,5 +139,16 @@ requirejs(['./WebWorldWind/src/WorldWind',
         // Listen for taps on mobile devices and highlight the placemarks that the user taps.
         var tapRecognizer = new WorldWind.TapRecognizer(wwd, handlePick);
 
+        $("#showLayers").click(function(e) {
+            $("#showLayers").css("display", "none")
+            $("#hideLayers").css("display", "inline")            
+            $("#layerList").css("display", "inline")
+        })
+
+        $("#hideLayers").click(function(e) {
+            $("#hideLayers").css("display", "none")
+            $("#showLayers").css("display", "inline")            
+            $("#layerList").css("display", "none")
+        })
 
     });

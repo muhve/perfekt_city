@@ -61,6 +61,7 @@ nav {
 .list-group-item {
   background-color: #fff;
   border-color: #fff;
+  padding: 5px;
 }
 
 .list-group-item.active,
@@ -114,8 +115,9 @@ nav {
 }
 .hover-information {
   font-weight: bold;
-  height: 50px;
+  height: 200px;
   animation: fadein 0.3s;
+  line-height: 1;
 }
 @keyframes fadein {
     from { opacity: 0; }
