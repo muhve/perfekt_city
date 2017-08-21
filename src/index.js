@@ -98,8 +98,9 @@ requirejs(['./WebWorldWind/src/WorldWind',
                 }
 
                 if (highlightedItems.length > 0) {
+                    console.log("asd")
 
-                    var div = document.getElementById("divtoshow");
+                    var div = document.getElementById("hover");
                     
                     div.style.left = x;
                     div.style.top = y;
